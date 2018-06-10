@@ -15,11 +15,13 @@
  */
 package util;
 
+import com.google.api.services.analytics.Analytics;
 import com.google.api.services.analytics.model.GaData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -81,5 +83,27 @@ public class GAUtility {
 
 
         return jsonObject;
+    }
+    
+    /**
+     * @param analytics  - Google Analytics Object.
+     * @param tableId    - table id from google API console.
+     * @param startDate  - start date to collect analytics data.
+     * @param endDate    - end date to collect analytics data.
+     * @param metrics    - metrics to be collected (e.g. ga:sessions )
+     * @param dimensions - dimensions (e.g.
+     * @return  Google Analytics data.
+     * @throws IOException
+     */
+    public static GaData execute(final Analytics analytics, final String tableId, final String startDate, final String endDate, final String metrics, final String dimensions,final String sortExpression) throws IOException {
+        return analytics.data().ga().get(tableId, // Table Id.
+                startDate, // Start date.
+                endDate, // End date.
+                metrics) // Metrics.
+                .setDimensions(dimensions)
+//                .setSort(sortExpression) // "-ga:visits,ga:source"
+//                .setFilters("ga:medium==organic")
+                .setMaxResults(10000)
+                .execute();
     }
 }

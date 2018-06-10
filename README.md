@@ -7,9 +7,9 @@ Used examples from [Hello Analytics Sample](https://github.com/google/google-api
 ## Configuration
 * Update ./src/main/resources/client_secrets.json with your client_id and client_secret.
 * Update ./src/main/java/configuration/Config.java
-** APPLICATION_NAME and TABLE_ID.
-** Check mongo db name and collection names.
-** Check Elasticsearch index and mapping.
+* APPLICATION_NAME and TABLE_ID.
+* Check mongo db name and collection names.
+* Check Elasticsearch index and mapping.
 
 ## Elasticsearch (6.2) mapping details 
 ```
