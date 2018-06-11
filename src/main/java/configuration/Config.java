@@ -97,22 +97,22 @@ public class Config {
     /**
      * Elastic search index name for storing ga:session (metrics) ga:continent,ga:country,ga:city (dimension)
      */
-    public static final String ELASTIC_LOCATIONS = "ga_locations/location";
+    public static final String ELASTIC_LOCATIONS = "/ga_locations/location/";
 
     /**
      * Elastic search index name for storing ga:session (metrics) timestamp
      */
-    public static final String ELASTIC_SESSIONS = "ga_sessions/session";
+    public static final String ELASTIC_SESSIONS = "/ga_sessions/session/";
 
     /**
      * Elastic search index name for storing ga:session (metrics) timestamp
      */
-    public static final String ELASTIC_DEVICES = "ga_devices/device";
+    public static final String ELASTIC_DEVICES = "/ga_devices/device/";
 
     /**
      * Elastic search index name for storing ga:session (metrics) timestamp
      */
-    public static final String ELASTIC_PAGES = "ga_pages/page";
+    public static final String ELASTIC_PAGES = "/ga_pages/page/";
 
     static {
         try {
@@ -177,9 +177,17 @@ public class Config {
              searchDAO = new ElasticSearchDAO(new ElasticHost[]{new ElasticHost("localhost", 9200)});
         } catch (Throwable th) {
             th.printStackTrace();
+            LOGGER.error(th.getMessage(),th);
         }
         return searchDAO;
     }
    
-	
+    /**
+     * To cleanup resources
+     */
+	public static void cleanUp(){
+		if (client != null){
+			client.close();
+		}
+	}
 }

@@ -73,7 +73,22 @@ public class ElasticSearchDAO {
         HttpEntity httpEntity = new StringEntity(objectToBeStored.toString(), ContentType.APPLICATION_JSON);
         Map<String, String> params = new HashMap<>();
         Header basicHeader = new BasicHeader("name", "dashboard");
-        Response response = restClient.performRequest("POST",  collectionName+"/"+key, params, httpEntity, basicHeader);
+        Response response = restClient.performRequest("POST",  collectionName+key, params, httpEntity, basicHeader);
+        return response.getStatusLine().getStatusCode();
+    }
+    
+    
+    /**
+     * @param collectionName   -
+     * @param objectToBeStored - JSON object to be stored.
+     * @return status code of operation
+     * @throws IOException
+     */
+    public int store(final String collectionName, final JsonObject objectToBeStored) throws IOException {
+        HttpEntity httpEntity = new StringEntity(objectToBeStored.toString(), ContentType.APPLICATION_JSON);
+        Map<String, String> params = new HashMap<>();
+        Header basicHeader = new BasicHeader("name", "dashboard");
+        Response response = restClient.performRequest("POST",  collectionName, params, httpEntity, basicHeader);
         return response.getStatusLine().getStatusCode();
     }
 
