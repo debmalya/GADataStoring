@@ -47,19 +47,15 @@ public class DataLoading {
                     
                     // For location
                     GaData sessionData = execute(analytics, Config.TABLE_ID, fetchingDate, fetchingDate, "ga:sessions", "ga:continent,ga:country,ga:city");
-                    JsonObject jsonObject = GAUtility.createJsonObjectFromGAData(sessionData, fetchingDate,today);
-                    elasticSearchDao.store(Config.ELASTIC_LOCATIONS, jsonObject, fetchingDate);
-                    
+                    GAUtility.createJsonObjectFromGAData( sessionData, fetchingDate, today, elasticSearchDao,Config.ELASTIC_LOCATIONS);
                     
                     // For Devices
                     sessionData = execute(analytics, Config.TABLE_ID, fetchingDate, fetchingDate, "ga:sessions", "ga:mobileDeviceInfo,ga:continent,ga:country,ga:city");
-                    jsonObject = GAUtility.createJsonObjectFromGAData(sessionData, fetchingDate,today);
-                    elasticSearchDao.store(Config.ELASTIC_DEVICES, jsonObject, fetchingDate);
+                    GAUtility.createJsonObjectFromGAData( sessionData, fetchingDate, today, elasticSearchDao,Config.ELASTIC_DEVICES);
                     
                     // For pages
                     sessionData = execute(analytics, Config.TABLE_ID, fetchingDate, fetchingDate, "ga:pageviews", "ga:pagePath,ga:continent,ga:country,ga:city");
-                    jsonObject = GAUtility.createJsonObjectFromGAData(sessionData, fetchingDate,today);
-                    elasticSearchDao.store(Config.ELASTIC_PAGES, jsonObject, fetchingDate);
+                    GAUtility.createJsonObjectFromGAData( sessionData, fetchingDate, today, elasticSearchDao,Config.ELASTIC_PAGES);
                 } catch (Throwable th) {
                     th.printStackTrace();
                     LOGGER.error(th.getMessage(), th);
