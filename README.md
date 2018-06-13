@@ -109,6 +109,28 @@ PUT ga_pages
     }}
 }
 
+PUT ga_geo_locations
+{
+  "mappings": {
+    "geo_location": {
+      "properties": {
+        "location": {
+          "type": "geo_point",
+          "ignore_malformed": true,
+		  "geohash_prefix":     true,
+		   "geohash_precision":  "1km"
+        },
+        "ga:sessions": {
+          "type": "integer"
+        },"ga:timestamp":{
+           "type":"date",
+           "format":"YYYY-MM-dd HH:mm:ss"
+        }
+      }
+    }
+  }
+}
+
 ```
 # Reporting
 Try with Kibana
