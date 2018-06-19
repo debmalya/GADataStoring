@@ -47,7 +47,7 @@ import dao.ElasticSearchDAO;
 
 public class Config {
 	
-	/**
+    /**
      * Global instance of the HTTP transport.
      */
     public static HttpTransport HTTP_TRANSPORT;
